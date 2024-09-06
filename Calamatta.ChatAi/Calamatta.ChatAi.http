@@ -1,0 +1,6 @@
+@Calamatta.ChatAi_HostAddress = http://localhost:5022
+
+GET {{Calamatta.ChatAi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
