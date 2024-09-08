@@ -3,17 +3,13 @@ namespace Calamatta.ChatAi.Domain.Agents;
 public class Agent
 {
     public Guid Id { get; }
-    public string Name { get; } = null!;
-    public Seniority Seniority { get; } = null!;
+    public string Name { get; }
+    public Seniority Seniority { get; }
 
-    protected Agent()
+    public Agent(string name, Seniority seniority)
     {
-    }
-
-    public Agent(Guid id, string name, Seniority seniority) : this()
-    {
-        Id = id;
-        Name = name;
-        Seniority = seniority;
+        Id = Guid.NewGuid();
+        Name = name ?? throw new ArgumentNullException(nameof(name));
+        Seniority = seniority ?? throw new ArgumentNullException(nameof(seniority));
     }
 }

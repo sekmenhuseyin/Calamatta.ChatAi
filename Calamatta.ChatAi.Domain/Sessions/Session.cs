@@ -4,24 +4,20 @@ public class Session
 {
     public Guid Id { get; }
     public DateTime InitiatedAt { get; }
-    public SessionStatus Status { get; set; } = null!;
+    public SessionStatus Status { get; set; }
     public Agent? AssignedAgent { get; set; }
     public Guid? AssignedAgentId { get; set; }
 
-    protected Session()
+    public Session() 
     {
-    }
-
-    public Session(Guid id, DateTime initiatedAt) : this()
-    {
-        Id = id;
-        InitiatedAt = initiatedAt;
+        Id = Guid.NewGuid();
+        InitiatedAt = DateTime.UtcNow;
         Status = SessionStatus.Initiated;
     }
 
     public void AssignAgent(Agent agent)
     {
-        AssignedAgent = agent;
+        AssignedAgent = agent ?? throw new ArgumentNullException(nameof(agent));
         AssignedAgentId = agent.Id;
         Status = SessionStatus.Assigned;
     }
