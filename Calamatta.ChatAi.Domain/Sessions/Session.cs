@@ -2,18 +2,11 @@ namespace Calamatta.ChatAi.Domain.Sessions;
 
 public class Session
 {
-    public Guid Id { get; }
-    public DateTime InitiatedAt { get; }
-    public SessionStatus Status { get; set; }
+    public Guid Id { get; } = Guid.NewGuid();
+    public DateTime InitiatedAt { get; } = DateTime.UtcNow;
+    public SessionStatus Status { get; set; } = SessionStatus.Initiated;
     public Agent? AssignedAgent { get; set; }
     public Guid? AssignedAgentId { get; set; }
-
-    public Session() 
-    {
-        Id = Guid.NewGuid();
-        InitiatedAt = DateTime.UtcNow;
-        Status = SessionStatus.Initiated;
-    }
 
     public void AssignAgent(Agent agent)
     {

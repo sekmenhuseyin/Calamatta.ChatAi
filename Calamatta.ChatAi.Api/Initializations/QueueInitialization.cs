@@ -12,6 +12,7 @@ public static class QueueInitialization
         }
         else
         {
+            builder.Services.AddSingleton(rabbitMqSettings);
             builder.Services.AddSingleton<IChatSessionPublisher, ChatSessionPublisher>();
             builder.Services.AddSingleton<IConnection>(_ =>
             {
@@ -33,16 +34,4 @@ public class NullChatSessionPublisher : IChatSessionPublisher
     public void Publish(ChatSessionMessage chatSessionMessage, string queueName)
     {
     }
-}
-
-public record RabbitMqSettings(
-    string Connection,
-    string Username,
-    string Password,
-    string QueueName,
-    string TopicPrefix,
-    bool Disabled
-)
-{
-    public const string SettingPath = "RabbitMQ";
 }

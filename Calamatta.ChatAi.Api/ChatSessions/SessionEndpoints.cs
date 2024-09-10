@@ -4,20 +4,13 @@ public static class SessionEndpoints
 {
     public static void Map(WebApplication app)
     {
-        app.MapGroup("/chat")
-            .MapChatSessions()
-            .WithOpenApi();
-    }
-
-    private static RouteGroupBuilder MapChatSessions(this RouteGroupBuilder group)
-    {
-        group.MapGet("", GetAllChatSessions);
+        var group = app.MapGroup("/chat");
+        group.MapGet("/", GetAllChatSessions);
         group.MapGet("/{id:guid}", GetChatSession);
-        group.MapPost("", CreateChatSession);
+        group.MapPost("/", CreateChatSession);
         group.MapPut("/{id:guid}", UpdateChatSession);
         group.MapDelete("/{id:guid}", DeleteChatSession);
-
-        return group;
+        group.WithOpenApi();
     }
 
     private static Task GetAllChatSessions(HttpContext context)
@@ -30,9 +23,9 @@ public static class SessionEndpoints
         return context.Response.WriteAsJsonAsync(nameof(GetChatSession));
     }
 
-    private static Task CreateChatSession(HttpContext context)
+    private static IResult CreateChatSession(IMediator mediator)
     {
-        return context.Response.WriteAsJsonAsync(nameof(CreateChatSession));
+        return Results.Ok(mediator.Send(new CreateChatCommand()));
     }
 
     private static Task UpdateChatSession(HttpContext context, Guid id)
