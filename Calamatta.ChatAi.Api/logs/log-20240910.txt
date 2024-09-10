@@ -1,0 +1,1 @@
+2024-09-10 11:48:32.661 +03:00 [INF] Starting web application
