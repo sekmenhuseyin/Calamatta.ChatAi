@@ -1,4 +1,4 @@
-namespace Calamatta.ChatAi.Api;
+namespace Calamatta.ChatAi.Api.Initializations;
 
 public static class LogInitialization
 {

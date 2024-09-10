@@ -1,3 +1,5 @@
+using Calamatta.ChatAi.Api.Initializations;
+
 LogInitialization.Initialize();
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.AddLogging();
+builder.AddQueuePublisher();
 
 var app = builder.Build();
 app.UseSerilogRequestLogging(); 
